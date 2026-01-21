@@ -1,0 +1,291 @@
+/* ====================================
+   ESTILOS DE SECCIONES ESPECÍFICAS
+   ==================================== */
+
+/* ============ HERO SECTION ============ */
+.hero {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+    padding: var(--space-16) 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-badge {
+    margin-bottom: var(--space-6);
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.hero-title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-4);
+    color: var(--color-gray-900);
+    animation: fadeInUp 0.6s ease-out 0.1s backwards;
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary-dark);
+    margin-bottom: var(--space-6);
+    font-weight: var(--font-weight-semibold);
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+.hero-text {
+    max-width: 700px;
+    margin: 0 auto var(--space-8);
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-700);
+    line-height: var(--line-height-relaxed);
+    animation: fadeInUp 0.6s ease-out 0.3s backwards;
+}
+
+.hero .btn {
+    animation: fadeInUp 0.6s ease-out 0.4s backwards;
+}
+
+@media (min-width: 768px) {
+    .hero {
+        padding: var(--space-20) 0;
+    }
+    
+    .hero-title {
+        font-size: var(--font-size-5xl);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-3xl);
+    }
+}
+
+/* ============ INSTRUCTOR CARD ============ */
+.instructor-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-xl);
+}
+
+.instructor-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-5);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-6);
+}
+
+.instructor-name {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-2);
+    color: var(--color-gray-900);
+}
+
+.instructor-matricula {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-8);
+    font-weight: var(--font-weight-medium);
+}
+
+.instructor-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .instructor-card {
+        padding: var(--space-12);
+    }
+    
+    .instructor-name {
+        font-size: var(--font-size-4xl);
+    }
+}
+
+/* ============ CTA SECTION ============ */
+.cta-section {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    padding: var(--space-16) 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.cta-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-title {
+    color: var(--color-white);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-4);
+}
+
+.cta-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-8);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-section .btn-primary {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+}
+
+.cta-section .btn-primary:hover {
+    background-color: var(--color-gray-100);
+    color: var(--color-primary-dark);
+}
+
+@media (min-width: 768px) {
+    .cta-section {
+        padding: var(--space-20) 0;
+    }
+    
+    .cta-title {
+        font-size: var(--font-size-4xl);
+    }
+}
+
+/* ============ FOOTER ============ */
+.footer {
+    background-color: var(--color-gray-900);
+    padding: var(--space-8) 0;
+    text-align: center;
+    color: var(--color-gray-400);
+}
+
+.footer p {
+    margin-bottom: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-400);
+}
+
+/* ============ ANIMACIONES ============ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Animación para botones */
+.btn-primary {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.btn-primary:hover {
+    animation: none;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 767px) {
+    .hero-title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-xl);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .price-amount {
+        font-size: var(--font-size-4xl);
+    }
+}
+
+/* ============ ACCESIBILIDAD ============ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus visible para accesibilidad */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+}

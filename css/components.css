@@ -1,0 +1,369 @@
+/* ====================================
+   COMPONENTES REUTILIZABLES
+   ==================================== */
+
+/* BOTONES */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--font-size-lg);
+}
+
+.btn-icon {
+    flex-shrink: 0;
+}
+
+/* CARDS */
+.card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.card-icon {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-4);
+    display: block;
+}
+
+.card-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-2);
+    color: var(--color-gray-900);
+}
+
+.card-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin-bottom: 0;
+}
+
+/* BADGES */
+.badge {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    border-radius: var(--radius-full);
+}
+
+/* ALERTS */
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-6);
+}
+
+.alert-warning {
+    background-color: #fef3c7;
+    border: 1px solid #fcd34d;
+    color: #92400e;
+}
+
+.alert-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* FEATURES */
+.feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.feature:last-child {
+    margin-bottom: 0;
+}
+
+.feature-icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    margin-top: 2px;
+}
+
+/* SCHEDULE CARDS */
+.schedule-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .schedule-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.schedule-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
+}
+
+.schedule-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.schedule-card-virtual .schedule-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.schedule-card-presencial .schedule-header {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.schedule-header {
+    padding: var(--space-6);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.schedule-header h3 {
+    color: var(--color-white);
+    margin-bottom: 0;
+    font-size: var(--font-size-xl);
+}
+
+.schedule-icon {
+    flex-shrink: 0;
+}
+
+.schedule-body {
+    padding: var(--space-6);
+}
+
+.schedule-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.schedule-detail:last-child {
+    border-bottom: none;
+}
+
+.schedule-label {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gray-600);
+}
+
+.schedule-value {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-900);
+}
+
+/* PRICE CARD */
+.price-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-xl);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.price-main {
+    text-align: center;
+    margin-bottom: var(--space-6);
+}
+
+.price-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.price-amount {
+    display: block;
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary-dark);
+}
+
+.price-divider {
+    height: 1px;
+    background-color: var(--color-primary);
+    opacity: 0.3;
+    margin: var(--space-6) 0;
+}
+
+.price-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.price-option {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+}
+
+.price-option strong {
+    display: block;
+    color: var(--color-gray-900);
+    margin-bottom: var(--space-1);
+}
+
+.price-option p {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin-bottom: 0;
+}
+
+.price-icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    margin-top: 2px;
+}
+
+/* INSCRIPTION GRID */
+.inscription-grid {
+    display: grid;
+    gap: var(--space-8);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .inscription-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.inscription-step {
+    text-align: center;
+}
+
+.step-number {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin: 0 auto var(--space-4);
+    box-shadow: var(--shadow-lg);
+}
+
+.step-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-3);
+}
+
+.step-text {
+    margin-bottom: var(--space-4);
+}
+
+.step-list {
+    text-align: left;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.step-list li {
+    padding: var(--space-2) 0;
+    padding-left: var(--space-6);
+    position: relative;
+    color: var(--color-gray-700);
+}
+
+.step-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+
+/* PAYMENT INFO */
+.payment-info {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-top: var(--space-4);
+}
+
+.payment-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.payment-detail:last-child {
+    border-bottom: none;
+}
+
+.payment-label {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gray-600);
+}
+
+.payment-value {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-900);
+    font-family: 'Courier New', monospace;
+}
