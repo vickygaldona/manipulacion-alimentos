@@ -152,6 +152,105 @@
             font-weight: 700 !important;
         }
 
+        /* FORMULARIO DE INSCRIPCIÓN */
+        .formulario-inscripcion {
+            background: var(--blanco);
+            margin: 1rem;
+            padding: 2rem 1.5rem;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .formulario-inscripcion h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--verde-oscuro);
+        }
+
+        .formulario-inscripcion .subtitle-form {
+            text-align: center;
+            color: var(--gris);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--verde-oscuro);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group label .required {
+            color: #EF4444;
+            margin-left: 0.25rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--beige);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+            background: var(--crema);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--verde-principal);
+            background: var(--blanco);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--gris);
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .btn-enviar-form {
+            width: 100%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: var(--blanco);
+            border: none;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-enviar-form:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-enviar-form:active {
+            transform: scale(0.98);
+        }
+
+        .btn-enviar-form::before {
+            content: '📱 ';
+        }
+
         /* CTA PRINCIPAL */
         .cta-principal {
             padding: 0 1rem 1.5rem;
@@ -160,15 +259,15 @@
         .btn-whatsapp {
             display: block;
             width: 100%;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            background: linear-gradient(135deg, var(--verde-principal) 0%, #9FB875 100%);
             color: var(--blanco);
             text-decoration: none;
-            padding: 1.25rem;
+            padding: 1rem;
             border-radius: 1rem;
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 600;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 4px 15px rgba(143, 163, 100, 0.3);
             transition: all 0.3s;
         }
 
@@ -177,7 +276,31 @@
         }
 
         .btn-whatsapp::before {
-            content: '📱 ';
+            content: '💬 ';
+        }
+
+        .o-divider {
+            text-align: center;
+            margin: 1.5rem 1rem;
+            position: relative;
+        }
+
+        .o-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--beige);
+        }
+
+        .o-divider span {
+            background: var(--crema);
+            padding: 0 1rem;
+            position: relative;
+            color: var(--gris);
+            font-size: 0.9rem;
         }
 
         /* PASOS DE INSCRIPCIÓN */
@@ -417,7 +540,7 @@
                 margin: -2rem 2rem 2rem;
             }
 
-            .steps, .para-quien, .cta-principal {
+            .steps, .para-quien, .cta-principal, .formulario-inscripcion {
                 padding-left: 2rem;
                 padding-right: 2rem;
             }
@@ -456,7 +579,7 @@
                 border-bottom: none;
             }
 
-            .steps, .para-quien {
+            .steps, .para-quien, .formulario-inscripcion {
                 max-width: 900px;
                 margin-left: auto;
                 margin-right: auto;
@@ -507,7 +630,7 @@
                     <h3>¿Dónde es?</h3>
                 </div>
                 <div class="info-detail">
-                    <strong>Clase:</strong> Por Google Meet
+                    <strong>Clase Virtual:</strong> Por Google Meet
                     <strong>Evaluación:</strong> Paraguay 97, San Rafael
                 </div>
             </div>
@@ -546,27 +669,109 @@
         </div>
     </div>
 
+    <!-- FORMULARIO DE INSCRIPCIÓN -->
+    <div class="formulario-inscripcion">
+        <h2>📝 Formulario de Inscripción</h2>
+        <p class="subtitle-form">Completá tus datos y te generamos el mensaje automáticamente</p>
+        
+        <form id="formInscripcion">
+            <div class="form-group">
+                <label for="nombre">
+                    Nombre Completo
+                    <span class="required">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="nombre" 
+                    name="nombre" 
+                    required
+                    placeholder="Ej: Juan Pérez"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="dni">
+                    Número de DNI
+                    <span class="required">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="dni" 
+                    name="dni" 
+                    required
+                    placeholder="Ej: 12345678"
+                    pattern="[0-9]+"
+                >
+                <span class="form-hint">Solo números, sin puntos ni espacios</span>
+            </div>
+
+            <div class="form-group">
+                <label for="celular">
+                    Número de Celular
+                    <span class="required">*</span>
+                </label>
+                <input 
+                    type="tel" 
+                    id="celular" 
+                    name="celular" 
+                    required
+                    placeholder="Ej: 2604123456"
+                >
+                <span class="form-hint">Con código de área, sin 15</span>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">
+                    Dirección Completa
+                    <span class="required">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="direccion" 
+                    name="direccion" 
+                    required
+                    placeholder="Ej: San Martín 123, San Rafael"
+                >
+                <span class="form-hint">Calle, número, barrio/ciudad</span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">
+                    Email
+                    <span class="required">*</span>
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required
+                    placeholder="Ej: juanperez@gmail.com"
+                >
+            </div>
+
+            <button type="submit" class="btn-enviar-form">
+                Enviar Inscripción por WhatsApp
+            </button>
+        </form>
+    </div>
+
+    <div class="o-divider">
+        <span>o si preferís</span>
+    </div>
+
     <!-- CTA PRINCIPAL -->
     <div class="cta-principal">
-        <a href="https://wa.me/5492616123456?text=Hola!%20Quiero%20inscribirme%20al%20curso%20de%20Manipulaci%C3%B3n%20de%20Alimentos" class="btn-whatsapp" id="btn-whatsapp">
-            Inscribirme por WhatsApp
+        <a href="https://wa.me/5492604840322?text=Hola!%20Quiero%20inscribirme%20al%20curso%20de%20Manipulaci%C3%B3n%20de%20Alimentos" class="btn-whatsapp" id="btn-whatsapp">
+            Escribir directamente por WhatsApp
         </a>
     </div>
 
-    <!-- PASOS PARA INSCRIBIRSE -->
+    <!-- PASOS DE INSCRIPCIÓN -->
     <div class="steps">
-        <h2>Pasos para inscribirte (hacelo en orden)</h2>
+        <h2>¿Cómo sigue después de inscribirte?</h2>
         
         <div class="step">
             <div class="step-number">1</div>
-            <div class="step-content">
-                <h3>Mandame un WhatsApp con tus datos</h3>
-                <p><strong>Mandá esto:</strong> Tu nombre completo, número de DNI, dirección donde vivís y tu email</p>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-number">2</div>
             <div class="step-content">
                 <h3>Hacé la transferencia de $14.000</h3>
                 <p><strong>Importante:</strong> Copiá bien estos datos</p>
@@ -588,11 +793,19 @@
         </div>
 
         <div class="step">
-            <div class="step-number">3</div>
+            <div class="step-number">2</div>
             <div class="step-content">
                 <h3>Mandame el comprobante</h3>
                 <p>Sacale captura o foto al comprobante y mandamelo por WhatsApp. <strong>Con eso ya quedás inscripto.</strong></p>
-                <p style="margin-top: 0.5rem; color: var(--verde-principal); font-weight: 600;">Los otros $14.000 los pagás el día de la evaluación </p>
+                <p style="margin-top: 0.5rem; color: var(--verde-principal); font-weight: 600;">Los otros $14.000 los pagás el día de la evaluación. </p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h3>Recibís la confirmación</h3>
+                <p>Te voy a mandar un mensaje confirmando tu inscripción y el link de Google Meet para la clase.</p>
             </div>
         </div>
     </div>
@@ -682,11 +895,42 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN - CAMBIAR NÚMERO DE WHATSAPP AQUÍ
-        const WHATSAPP_NUMBER = '2604840322'; // ← CAMBIÁ ESTE NÚMERO
-        const MESSAGE = 'Hola! Quiero inscribirme al curso de Manipulación de Alimentos';
+        // CONFIGURACIÓN - NÚMERO DE WHATSAPP
+        const WHATSAPP_NUMBER = '2604840322';
         
-        // Aplicar a todos los botones
+        // Manejar el envío del formulario
+        document.getElementById('formInscripcion').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Obtener los datos del formulario
+            const nombre = document.getElementById('nombre').value.trim();
+            const dni = document.getElementById('dni').value.trim();
+            const celular = document.getElementById('celular').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            // Crear el mensaje personalizado
+            const mensaje = `¡Hola Carolina! Quiero inscribirme al curso de Manipulación de Alimentos.
+
+📋 *MIS DATOS:*
+
+👤 Nombre: ${nombre}
+🆔 DNI: ${dni}
+📱 Celular: ${celular}
+📍 Dirección: ${direccion}
+📧 Email: ${email}
+
+Ya vi toda la información del curso. Ahora voy a hacer la transferencia de $14.000 y te mando el comprobante. ¡Gracias!`;
+            
+            // Crear el link de WhatsApp con el mensaje
+            const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+            
+            // Abrir WhatsApp
+            window.open(whatsappLink, '_blank');
+        });
+        
+        // Aplicar al botón directo de WhatsApp
+        const MESSAGE = 'Hola! Quiero inscribirme al curso de Manipulación de Alimentos';
         const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(MESSAGE)}`;
         document.getElementById('btn-whatsapp').href = whatsappLink;
         
@@ -699,6 +943,11 @@
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
+        });
+
+        // Validación de solo números en DNI
+        document.getElementById('dni').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
         });
     </script>
 </body>
