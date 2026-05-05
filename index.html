@@ -114,14 +114,18 @@
             gap: 0.5rem;
         }
 
+        .fechas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
         .fecha-opcion {
             background: #F0F4E8;
             border: 2px solid var(--verde-principal);
             border-radius: 0.875rem;
             padding: 1rem;
             text-align: center;
-            max-width: 320px;
-            margin: 0 auto;
         }
 
         .fecha-opcion .fecha-tag {
@@ -157,6 +161,10 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 0.5rem;
+        }
+
+        .nuevo-badge.badge-nuevo {
+            background: #E67E22;
         }
 
         .info-grid {
@@ -279,16 +287,38 @@
             min-height: 80px;
         }
 
-        /* Fecha info box en formulario */
-        .fecha-info-box {
+        /* Select de fecha con flecha */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: '▾';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--verde-principal);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        /* Preview de fecha seleccionada */
+        .fecha-preview {
+            display: none;
             background: #F0F4E8;
             border: 2px solid var(--verde-principal);
             border-radius: 0.875rem;
             padding: 1rem;
             text-align: center;
+            margin-top: 0.75rem;
         }
 
-        .fecha-info-box .fb-mes {
+        .fecha-preview.visible {
+            display: block;
+        }
+
+        .fecha-preview .fp-mes {
             font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -298,7 +328,7 @@
             margin-bottom: 0.25rem;
         }
 
-        .fecha-info-box .fb-dias {
+        .fecha-preview .fp-dias {
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--verde-oscuro);
@@ -306,7 +336,7 @@
             margin-bottom: 0.25rem;
         }
 
-        .fecha-info-box .fb-detalle {
+        .fecha-preview .fp-detalle {
             font-size: 0.85rem;
             color: var(--gris);
             display: block;
@@ -699,21 +729,36 @@
     <div class="quick-info">
         <div class="info-header">
             <h2>Datos del Curso</h2>
-            <p>Próxima fecha disponible</p>
+            <p>Fechas disponibles en Mayo</p>
         </div>
 
-        <!-- FECHA DISPONIBLE -->
+        <!-- FECHAS DISPONIBLES -->
         <div class="fechas-disponibles">
-            <h3>📅 Fecha disponible</h3>
-            <div class="fecha-opcion">
-                <span class="nuevo-badge">Próxima fecha</span>
-                <div class="fecha-linea">
-                    <strong>8 de Mayo</strong>
-                    Clase virtual · 15 hs
+            <h3>📅 Fechas disponibles</h3>
+            <div class="fechas-grid">
+                <!-- Fecha 1 -->
+                <div class="fecha-opcion">
+                    <span class="nuevo-badge">Opción 1</span>
+                    <div class="fecha-linea">
+                        <strong>8 de Mayo</strong>
+                        Clase virtual · 15 hs
+                    </div>
+                    <div class="fecha-linea" style="margin-top: 0.4rem;">
+                        <strong>9 de Mayo</strong>
+                        Evaluación presencial · 16 hs
+                    </div>
                 </div>
-                <div class="fecha-linea" style="margin-top: 0.4rem;">
-                    <strong>9 de Mayo</strong>
-                    Evaluación presencial · 16 hs
+                <!-- Fecha 2 -->
+                <div class="fecha-opcion">
+                    <span class="nuevo-badge badge-nuevo">Opción 2</span>
+                    <div class="fecha-linea">
+                        <strong>14 de Mayo</strong>
+                        Clase virtual · 15 hs
+                    </div>
+                    <div class="fecha-linea" style="margin-top: 0.4rem;">
+                        <strong>15 de Mayo</strong>
+                        Evaluación presencial · 16 hs
+                    </div>
                 </div>
             </div>
         </div>
@@ -760,7 +805,7 @@
         <span class="alert-icon">⚠️</span>
         <div class="alert-content">
             <strong>ATENCIÓN - LEELO BIEN:</strong>
-            La fecha y horario NO SE PUEDE cambiar. Si no podés venir en esta fecha, esperá al próximo curso.
+            La fecha y horario NO SE PUEDE cambiar. Si no podés venir en ninguna de estas fechas, esperá al próximo curso.
         </div>
     </div>
 
@@ -844,13 +889,24 @@
                 >
             </div>
 
-            <!-- FECHA FIJA -->
+            <!-- SELECTOR DE FECHA -->
             <div class="form-group">
-                <label>Fecha del curso</label>
-                <div class="fecha-info-box">
-                    <span class="fb-mes">Próxima fecha</span>
-                    <span class="fb-dias">8 May · 9 May</span>
-                    <span class="fb-detalle">Clase virtual: 08/05 a las 15 hs<br>Evaluación presencial: 09/05 a las 16 hs</span>
+                <label for="fecha">
+                    Elegí tu fecha
+                    <span class="required">*</span>
+                </label>
+                <div class="select-wrapper">
+                    <select id="fecha" name="fecha" required>
+                        <option value="" disabled selected>-- Seleccioná una fecha --</option>
+                        <option value="opcion1">Opción 1: 8 y 9 de Mayo</option>
+                        <option value="opcion2">Opción 2: 14 y 15 de Mayo</option>
+                    </select>
+                </div>
+                <!-- Preview dinámica -->
+                <div class="fecha-preview" id="fechaPreview">
+                    <span class="fp-mes" id="fpMes"></span>
+                    <span class="fp-dias" id="fpDias"></span>
+                    <span class="fp-detalle" id="fpDetalle"></span>
                 </div>
             </div>
 
@@ -1002,11 +1058,37 @@
     <script>
         const WHATSAPP_NUMBER = '2604840322';
 
-        const FECHA_INFO = {
-            label: 'Opción 8 May y 9 May',
-            detalle: 'Clase virtual: 8 de Mayo a las 15 hs\nEvaluación presencial: 9 de Mayo a las 16 hs'
+        const FECHAS = {
+            opcion1: {
+                label: '8 y 9 de Mayo',
+                mes: 'Mayo · Opción 1',
+                dias: '8 May · 9 May',
+                detalle: 'Clase virtual: 8 de Mayo a las 15 hs\nEvaluación presencial: 9 de Mayo a las 16 hs'
+            },
+            opcion2: {
+                label: '14 y 15 de Mayo',
+                mes: 'Mayo · Opción 2',
+                dias: '14 May · 15 May',
+                detalle: 'Clase virtual: 14 de Mayo a las 15 hs\nEvaluación presencial: 15 de Mayo a las 16 hs'
+            }
         };
 
+        // Preview dinámica al elegir fecha
+        document.getElementById('fecha').addEventListener('change', function() {
+            const val = this.value;
+            const preview = document.getElementById('fechaPreview');
+            if (val && FECHAS[val]) {
+                const f = FECHAS[val];
+                document.getElementById('fpMes').textContent = f.mes;
+                document.getElementById('fpDias').textContent = f.dias;
+                document.getElementById('fpDetalle').innerHTML = f.detalle.replace('\n', '<br>');
+                preview.classList.add('visible');
+            } else {
+                preview.classList.remove('visible');
+            }
+        });
+
+        // Submit del formulario
         document.getElementById('formInscripcion').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -1015,6 +1097,13 @@
             const celular = document.getElementById('celular').value.trim();
             const direccion = document.getElementById('direccion').value.trim();
             const email = document.getElementById('email').value.trim();
+            const fechaVal = document.getElementById('fecha').value;
+            const fecha = FECHAS[fechaVal];
+
+            if (!fechaVal || !fecha) {
+                alert('Por favor elegí una fecha para el curso.');
+                return;
+            }
 
             const mensaje = `¡Hola Carolina! Quiero inscribirme al curso de Manipulación de Alimentos.
 
@@ -1026,15 +1115,15 @@
 📍 Dirección: ${direccion}
 📧 Email: ${email}
 
-📅 *FECHA ELEGIDA:* 8 y 9 de Mayo
-${FECHA_INFO.detalle}
+📅 *FECHA ELEGIDA:* ${fecha.label}
+${fecha.detalle}
 
 Ya vi toda la información del curso. Ahora voy a hacer la transferencia de $10.000 y te mando el comprobante. ¡Gracias!`;
 
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`, '_blank');
         });
 
-        const MESSAGE = 'Hola! Quiero inscribirme al curso de Manipulación de Alimentos (8 y 9 de Mayo)';
+        const MESSAGE = 'Hola! Quiero inscribirme al curso de Manipulación de Alimentos. ¿Podés darme más información sobre las fechas disponibles?';
         document.getElementById('btn-whatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(MESSAGE)}`;
 
         document.getElementById('dni').addEventListener('input', function() {
