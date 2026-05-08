@@ -116,7 +116,7 @@
 
         .fechas-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 0.75rem;
         }
 
@@ -161,10 +161,6 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 0.5rem;
-        }
-
-        .nuevo-badge.badge-nuevo {
-            background: #E67E22;
         }
 
         .info-grid {
@@ -729,28 +725,16 @@
     <div class="quick-info">
         <div class="info-header">
             <h2>Datos del Curso</h2>
-            <p>Fechas disponibles en Mayo</p>
+            <p>Fecha disponible en Mayo</p>
         </div>
 
         <!-- FECHAS DISPONIBLES -->
         <div class="fechas-disponibles">
-            <h3>📅 Fechas disponibles</h3>
+            <h3>📅 Fecha disponible</h3>
             <div class="fechas-grid">
-                <!-- Fecha 1 -->
+                <!-- Fecha única -->
                 <div class="fecha-opcion">
-                    <span class="nuevo-badge">Opción 1</span>
-                    <div class="fecha-linea">
-                        <strong>8 de Mayo</strong>
-                        Clase virtual · 15 hs
-                    </div>
-                    <div class="fecha-linea" style="margin-top: 0.4rem;">
-                        <strong>9 de Mayo</strong>
-                        Evaluación presencial · 16 hs
-                    </div>
-                </div>
-                <!-- Fecha 2 -->
-                <div class="fecha-opcion">
-                    <span class="nuevo-badge badge-nuevo">Opción 2</span>
+                    <span class="nuevo-badge">Mayo</span>
                     <div class="fecha-linea">
                         <strong>14 de Mayo</strong>
                         Clase virtual · 15 hs
@@ -805,7 +789,7 @@
         <span class="alert-icon">⚠️</span>
         <div class="alert-content">
             <strong>ATENCIÓN - LEELO BIEN:</strong>
-            La fecha y horario NO SE PUEDE cambiar. Si no podés venir en ninguna de estas fechas, esperá al próximo curso.
+            La fecha y horario NO SE PUEDE cambiar. Si no podés venir en esta fecha, esperá al próximo curso.
         </div>
     </div>
 
@@ -887,27 +871,6 @@
                     required
                     placeholder="Ej: juanperez@gmail.com"
                 >
-            </div>
-
-            <!-- SELECTOR DE FECHA -->
-            <div class="form-group">
-                <label for="fecha">
-                    Elegí tu fecha
-                    <span class="required">*</span>
-                </label>
-                <div class="select-wrapper">
-                    <select id="fecha" name="fecha" required>
-                        <option value="" disabled selected>-- Seleccioná una fecha --</option>
-                        <option value="opcion1">Opción 1: 8 y 9 de Mayo</option>
-                        <option value="opcion2">Opción 2: 14 y 15 de Mayo</option>
-                    </select>
-                </div>
-                <!-- Preview dinámica -->
-                <div class="fecha-preview" id="fechaPreview">
-                    <span class="fp-mes" id="fpMes"></span>
-                    <span class="fp-dias" id="fpDias"></span>
-                    <span class="fp-detalle" id="fpDetalle"></span>
-                </div>
             </div>
 
             <button type="submit" class="btn-enviar-form">
@@ -1058,35 +1021,10 @@
     <script>
         const WHATSAPP_NUMBER = '2604840322';
 
-        const FECHAS = {
-            opcion1: {
-                label: '8 y 9 de Mayo',
-                mes: 'Mayo · Opción 1',
-                dias: '8 May · 9 May',
-                detalle: 'Clase virtual: 8 de Mayo a las 15 hs\nEvaluación presencial: 9 de Mayo a las 16 hs'
-            },
-            opcion2: {
-                label: '14 y 15 de Mayo',
-                mes: 'Mayo · Opción 2',
-                dias: '14 May · 15 May',
-                detalle: 'Clase virtual: 14 de Mayo a las 15 hs\nEvaluación presencial: 15 de Mayo a las 16 hs'
-            }
+        const FECHA = {
+            label: '14 y 15 de Mayo',
+            detalle: 'Clase virtual: 14 de Mayo a las 15 hs\nEvaluación presencial: 15 de Mayo a las 16 hs'
         };
-
-        // Preview dinámica al elegir fecha
-        document.getElementById('fecha').addEventListener('change', function() {
-            const val = this.value;
-            const preview = document.getElementById('fechaPreview');
-            if (val && FECHAS[val]) {
-                const f = FECHAS[val];
-                document.getElementById('fpMes').textContent = f.mes;
-                document.getElementById('fpDias').textContent = f.dias;
-                document.getElementById('fpDetalle').innerHTML = f.detalle.replace('\n', '<br>');
-                preview.classList.add('visible');
-            } else {
-                preview.classList.remove('visible');
-            }
-        });
 
         // Submit del formulario
         document.getElementById('formInscripcion').addEventListener('submit', function(e) {
@@ -1097,17 +1035,11 @@
             const celular = document.getElementById('celular').value.trim();
             const direccion = document.getElementById('direccion').value.trim();
             const email = document.getElementById('email').value.trim();
-            const fechaVal = document.getElementById('fecha').value;
-            const fecha = FECHAS[fechaVal];
-
-            if (!fechaVal || !fecha) {
-                alert('Por favor elegí una fecha para el curso.');
-                return;
-            }
 
             const mensaje = `¡Hola Carolina! Quiero inscribirme al curso de Manipulación de Alimentos.
 
 📋 *MIS DATOS:*
+
 
 👤 Nombre: ${nombre}
 🆔 DNI: ${dni}
@@ -1115,15 +1047,15 @@
 📍 Dirección: ${direccion}
 📧 Email: ${email}
 
-📅 *FECHA ELEGIDA:* ${fecha.label}
-${fecha.detalle}
+📅 *FECHA ELEGIDA:* ${FECHA.label}
+${FECHA.detalle}
 
 Ya vi toda la información del curso. Ahora voy a hacer la transferencia de $10.000 y te mando el comprobante. ¡Gracias!`;
 
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`, '_blank');
         });
 
-        const MESSAGE = 'Hola! Quiero inscribirme al curso de Manipulación de Alimentos. ¿Podés darme más información sobre las fechas disponibles?';
+        const MESSAGE = 'Hola! Quiero inscribirme al curso de Manipulación de Alimentos. ¿Podés darme más información sobre la fecha disponible?';
         document.getElementById('btn-whatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(MESSAGE)}`;
 
         document.getElementById('dni').addEventListener('input', function() {
