@@ -184,7 +184,7 @@
 
         .fecha-tab {
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
             background: var(--arena);
             border: 2px solid transparent;
             border-radius: 0.75rem;
@@ -634,9 +634,13 @@
         /* Selector de fecha en formulario */
         .form-fecha-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 0.65rem;
             margin-bottom: 0.4rem;
+        }
+
+        @media (max-width: 480px) {
+            .form-fecha-grid { grid-template-columns: 1fr 1fr; }
         }
 
         .form-fecha-opt {
@@ -1033,6 +1037,11 @@
                     <span class="tab-dia">14</span>
                     <span class="tab-semana">Miércoles</span>
                 </button>
+                <button class="fecha-tab" data-fecha="mayo22" type="button">
+                    <span class="tab-mes">Mayo</span>
+                    <span class="tab-dia">22</span>
+                    <span class="tab-semana">Jueves</span>
+                </button>
                 <button class="fecha-tab" data-fecha="mayo26" type="button">
                     <span class="tab-mes">Mayo</span>
                     <span class="tab-dia">26</span>
@@ -1040,7 +1049,7 @@
                 </button>
             </div>
 
-            <!-- Panel: 14 de mayo (turno único, sin selección) -->
+            <!-- Panel: 14 de mayo (turno único) -->
             <div class="turno-panel visible" id="panel-mayo14">
                 <div class="turno-label">Cronograma</div>
                 <div class="turnos-grid">
@@ -1058,6 +1067,28 @@
                     <div class="sr-texto">
                         <strong>14 y 15 de Mayo</strong>
                         Clase: 14/05 a las 15:00 hs · Evaluación: 15/05 a las 16:00 hs en Paraguay 97
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: 22 de mayo (turno único) -->
+            <div class="turno-panel" id="panel-mayo22">
+                <div class="turno-label">Cronograma</div>
+                <div class="turnos-grid">
+                    <div style="background:var(--verde-bg);border:2px solid var(--verde);border-radius:0.875rem;padding:0.875rem;text-align:center;">
+                        <span class="t-hora" style="font-family:'DM Serif Display',serif;font-size:1.45rem;color:var(--verde);display:block;line-height:1;margin-bottom:0.3rem;">15:00 hs</span>
+                        <span class="t-sub" style="font-size:0.75rem;color:var(--gris);line-height:1.4;">Clase virtual<br>Google Meet</span>
+                    </div>
+                    <div style="background:var(--verde-bg);border:2px solid var(--verde);border-radius:0.875rem;padding:0.875rem;text-align:center;">
+                        <span class="t-hora" style="font-family:'DM Serif Display',serif;font-size:1.45rem;color:var(--verde);display:block;line-height:1;margin-bottom:0.3rem;">16:00 hs</span>
+                        <span class="t-sub" style="font-size:0.75rem;color:var(--gris);line-height:1.4;">Evaluación · 23/05<br>Paraguay 97</span>
+                    </div>
+                </div>
+                <div class="seleccion-resumen visible" style="margin-top:0.875rem;">
+                    <span class="sr-icon">📅</span>
+                    <div class="sr-texto">
+                        <strong>22 y 23 de Mayo</strong>
+                        Clase: 22/05 a las 15:00 hs · Evaluación: 23/05 a las 16:00 hs en Paraguay 97
                     </div>
                 </div>
             </div>
@@ -1203,6 +1234,10 @@
                     <button type="button" class="form-fecha-opt activo" data-val="mayo14">
                         <span class="ffo-dia">14</span>
                         <div class="ffo-info">Mayo · Miércoles<br>Turno único — 15:00 hs</div>
+                    </button>
+                    <button type="button" class="form-fecha-opt" data-val="mayo22">
+                        <span class="ffo-dia">22</span>
+                        <div class="ffo-info">Mayo · Jueves<br>Turno único — 15:00 hs</div>
                     </button>
                     <button type="button" class="form-fecha-opt" data-val="mayo26">
                         <span class="ffo-dia">26</span>
@@ -1353,14 +1388,19 @@
         };
 
         // ── Estado de selección ──────────────────────────────────────────────
-        let estadoFecha  = 'mayo14';   // 'mayo14' | 'mayo26'
-        let estadoTurno  = null;       // 'manana' | 'tarde'
+        let estadoFecha  = 'mayo14';
+        let estadoTurno  = null;
 
         const FECHAS_INFO = {
             mayo14: {
                 label:   '14 y 15 de Mayo',
                 horario: 'Clase virtual: 14/05 a las 15:00 hs · Evaluación: 15/05 a las 16:00 hs en Paraguay 97',
                 hint:    'Clase virtual: 14/05 a las 15:00 hs · Evaluación: 15/05 a las 16:00 hs',
+            },
+            mayo22: {
+                label:   '22 y 23 de Mayo',
+                horario: 'Clase virtual: 22/05 a las 15:00 hs · Evaluación: 23/05 a las 16:00 hs en Paraguay 97',
+                hint:    'Clase virtual: 22/05 a las 15:00 hs · Evaluación: 23/05 a las 16:00 hs',
             },
             mayo26: {
                 manana: {
@@ -1399,8 +1439,8 @@
         });
 
         // ── Selector de fecha en formulario ──────────────────────────────────
-        const fechaHint      = document.getElementById('fecha-hint');
-        const turnoWrap      = document.getElementById('form-turno-wrap');
+        const fechaHint  = document.getElementById('fecha-hint');
+        const turnoWrap  = document.getElementById('form-turno-wrap');
 
         document.querySelectorAll('.form-fecha-opt').forEach(opt => {
             opt.addEventListener('click', () => {
@@ -1413,6 +1453,9 @@
                 if (estadoFecha === 'mayo14') {
                     turnoWrap.style.display = 'none';
                     fechaHint.textContent   = FECHAS_INFO.mayo14.hint;
+                } else if (estadoFecha === 'mayo22') {
+                    turnoWrap.style.display = 'none';
+                    fechaHint.textContent   = FECHAS_INFO.mayo22.hint;
                 } else {
                     turnoWrap.style.display = 'block';
                     fechaHint.textContent   = 'Seleccioná el turno de arriba';
@@ -1424,7 +1467,7 @@
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.form-turno-opt').forEach(b => b.classList.remove('activo'));
                 btn.classList.add('activo');
-                estadoTurno       = btn.dataset.turnoVal;
+                estadoTurno           = btn.dataset.turnoVal;
                 fechaHint.textContent = FECHAS_INFO.mayo26[estadoTurno].hint;
             });
         });
@@ -1442,7 +1485,6 @@
 
             if (!tipo) { alert('Por favor seleccioná el tipo de inscripción.'); return; }
 
-            // Validar turno si eligió mayo26
             if (estadoFecha === 'mayo26' && !estadoTurno) {
                 alert('Por favor seleccioná el turno (mañana o tarde) para la fecha del 26 de Mayo.');
                 return;
@@ -1453,6 +1495,8 @@
             let fechaInfo;
             if (estadoFecha === 'mayo14') {
                 fechaInfo = FECHAS_INFO.mayo14;
+            } else if (estadoFecha === 'mayo22') {
+                fechaInfo = FECHAS_INFO.mayo22;
             } else {
                 fechaInfo = FECHAS_INFO.mayo26[estadoTurno];
             }
