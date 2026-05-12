@@ -159,7 +159,7 @@
             letter-spacing: 0.08em;
         }
 
-        /* FECHA */
+        /* FECHAS CON SELECTOR */
         .fecha-block {
             padding: 1.5rem;
             border-bottom: 1px solid var(--arena);
@@ -174,44 +174,158 @@
             margin-bottom: 1rem;
         }
 
-        .fecha-dias {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
+        /* Tabs de fecha */
+        .fecha-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
-        .fecha-dia {
-            background: var(--verde-bg);
-            border-radius: 1rem;
-            padding: 1rem;
+        .fecha-tab {
+            flex: 1;
+            min-width: 120px;
+            background: var(--arena);
+            border: 2px solid transparent;
+            border-radius: 0.75rem;
+            padding: 0.75rem 0.875rem;
+            cursor: pointer;
             text-align: center;
-            border: 1.5px solid rgba(107,143,94,0.2);
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
         }
 
-        .fecha-dia .dia-tipo {
+        .fecha-tab:hover {
+            border-color: var(--verde-claro);
+            background: var(--verde-bg);
+        }
+
+        .fecha-tab.activo {
+            border-color: var(--verde);
+            background: var(--verde-bg);
+        }
+
+        .fecha-tab .tab-mes {
             font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--verde);
+            color: var(--gris-claro);
             display: block;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.2rem;
         }
 
-        .fecha-dia .dia-num {
+        .fecha-tab.activo .tab-mes { color: var(--verde); }
+
+        .fecha-tab .tab-dia {
             font-family: 'DM Serif Display', serif;
             font-size: 1.75rem;
             color: var(--verde-oscuro);
             line-height: 1;
             display: block;
-            margin-bottom: 0.25rem;
         }
 
-        .fecha-dia .dia-info {
-            font-size: 0.78rem;
+        .fecha-tab .tab-semana {
+            font-size: 0.72rem;
+            color: var(--gris);
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        /* Panel de turno */
+        .turno-panel {
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .turno-panel.visible { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .turno-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gris-claro);
+            margin-bottom: 0.65rem;
+        }
+
+        .turnos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
+        }
+
+        .turno-btn {
+            background: var(--crema);
+            border: 2px solid var(--arena);
+            border-radius: 0.875rem;
+            padding: 0.875rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .turno-btn:hover {
+            border-color: var(--verde-claro);
+            background: var(--verde-bg);
+        }
+
+        .turno-btn.seleccionado {
+            border-color: var(--verde);
+            background: var(--verde-bg);
+        }
+
+        .turno-btn .t-hora {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.45rem;
+            color: var(--verde-oscuro);
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .turno-btn.seleccionado .t-hora { color: var(--verde); }
+
+        .turno-btn .t-sub {
+            font-size: 0.75rem;
             color: var(--gris);
             line-height: 1.4;
         }
+
+        .turno-btn .t-check {
+            display: none;
+            color: var(--verde);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 0.3rem;
+        }
+
+        .turno-btn.seleccionado .t-check { display: block; }
+
+        /* Resumen de selección */
+        .seleccion-resumen {
+            display: none;
+            margin-top: 1rem;
+            background: var(--verde-bg);
+            border: 1.5px solid rgba(107,143,94,0.3);
+            border-radius: 0.875rem;
+            padding: 0.875rem 1rem;
+            font-size: 0.88rem;
+        }
+
+        .seleccion-resumen.visible { display: flex; align-items: center; gap: 0.6rem; }
+
+        .seleccion-resumen .sr-icon { font-size: 1.1rem; }
+
+        .seleccion-resumen .sr-texto { color: var(--verde-oscuro); line-height: 1.5; }
+
+        .seleccion-resumen .sr-texto strong { display: block; font-size: 0.95rem; }
 
         /* DETALLES */
         .detalles-grid {
@@ -516,6 +630,69 @@
         @media (min-width: 480px) {
             .form-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
         }
+
+        /* Selector de fecha en formulario */
+        .form-fecha-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-fecha-opt {
+            border: 2px solid var(--arena);
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            background: var(--crema);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .form-fecha-opt:hover { border-color: var(--verde-claro); background: var(--verde-bg); }
+
+        .form-fecha-opt.activo { border-color: var(--verde); background: var(--verde-bg); }
+
+        .form-fecha-opt .ffo-dia {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--verde-oscuro);
+            display: block;
+            line-height: 1;
+        }
+
+        .form-fecha-opt.activo .ffo-dia { color: var(--verde); }
+
+        .form-fecha-opt .ffo-info {
+            font-size: 0.72rem;
+            color: var(--gris);
+            margin-top: 0.2rem;
+        }
+
+        .form-turno-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.65rem;
+            margin-top: 0.65rem;
+        }
+
+        .form-turno-opt {
+            border: 2px solid var(--arena);
+            border-radius: 0.75rem;
+            padding: 0.65rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            background: var(--crema);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            color: var(--gris);
+            font-weight: 600;
+        }
+
+        .form-turno-opt:hover { border-color: var(--verde-claro); background: var(--verde-bg); color: var(--verde-oscuro); }
+        .form-turno-opt.activo { border-color: var(--verde); background: var(--verde-bg); color: var(--verde); }
 
         .btn-submit {
             width: 100%;
@@ -842,22 +1019,70 @@
     <!-- INFO CARD -->
     <div class="info-card">
         <div class="info-card-header">
-            <h2>📅 Próxima fecha disponible</h2>
+            <h2>📅 Próximas fechas disponibles</h2>
             <span class="mes-badge">Mayo 2025</span>
         </div>
 
         <div class="fecha-block">
-            <div class="fecha-block-label">Cronograma del curso</div>
-            <div class="fecha-dias">
-                <div class="fecha-dia">
-                    <span class="dia-tipo">Clase virtual</span>
-                    <span class="dia-num">14</span>
-                    <div class="dia-info">Mayo · Miércoles<br>15:00 hs · Google Meet</div>
+            <div class="fecha-block-label">Seleccioná una fecha</div>
+
+            <!-- Tabs de fecha -->
+            <div class="fecha-tabs">
+                <button class="fecha-tab activo" data-fecha="mayo14" type="button">
+                    <span class="tab-mes">Mayo</span>
+                    <span class="tab-dia">14</span>
+                    <span class="tab-semana">Miércoles</span>
+                </button>
+                <button class="fecha-tab" data-fecha="mayo26" type="button">
+                    <span class="tab-mes">Mayo</span>
+                    <span class="tab-dia">26</span>
+                    <span class="tab-semana">Lunes</span>
+                </button>
+            </div>
+
+            <!-- Panel: 14 de mayo (turno único, sin selección) -->
+            <div class="turno-panel visible" id="panel-mayo14">
+                <div class="turno-label">Cronograma</div>
+                <div class="turnos-grid">
+                    <div style="background:var(--verde-bg);border:2px solid var(--verde);border-radius:0.875rem;padding:0.875rem;text-align:center;">
+                        <span class="t-hora" style="font-family:'DM Serif Display',serif;font-size:1.45rem;color:var(--verde);display:block;line-height:1;margin-bottom:0.3rem;">15:00 hs</span>
+                        <span class="t-sub" style="font-size:0.75rem;color:var(--gris);line-height:1.4;">Clase virtual<br>Google Meet</span>
+                    </div>
+                    <div style="background:var(--verde-bg);border:2px solid var(--verde);border-radius:0.875rem;padding:0.875rem;text-align:center;">
+                        <span class="t-hora" style="font-family:'DM Serif Display',serif;font-size:1.45rem;color:var(--verde);display:block;line-height:1;margin-bottom:0.3rem;">16:00 hs</span>
+                        <span class="t-sub" style="font-size:0.75rem;color:var(--gris);line-height:1.4;">Evaluación · 15/05<br>Paraguay 97</span>
+                    </div>
                 </div>
-                <div class="fecha-dia">
-                    <span class="dia-tipo">Evaluación presencial</span>
-                    <span class="dia-num">15</span>
-                    <div class="dia-info">Mayo · Jueves<br>16:00 hs · Paraguay 97</div>
+                <div class="seleccion-resumen visible" style="margin-top:0.875rem;">
+                    <span class="sr-icon">📅</span>
+                    <div class="sr-texto">
+                        <strong>14 y 15 de Mayo</strong>
+                        Clase: 14/05 a las 15:00 hs · Evaluación: 15/05 a las 16:00 hs en Paraguay 97
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: 26 de mayo (dos turnos seleccionables) -->
+            <div class="turno-panel" id="panel-mayo26">
+                <div class="turno-label">Elegí tu turno</div>
+                <div class="turnos-grid">
+                    <button class="turno-btn" data-turno="manana" data-fecha-label="26 y 27 de Mayo" data-horario="Clase: 26/05 a las 10:00 hs · Evaluación: 27/05 a las 10:00 hs en Paraguay 97" type="button">
+                        <span class="t-hora">10:00 hs</span>
+                        <span class="t-sub">Turno mañana<br>Clase 26/05 · Eval. 27/05</span>
+                        <span class="t-check">✓ Seleccionado</span>
+                    </button>
+                    <button class="turno-btn" data-turno="tarde" data-fecha-label="26 y 27 de Mayo" data-horario="Clase: 26/05 a las 17:00 hs · Evaluación: 27/05 a las 17:00 hs en Paraguay 97" type="button">
+                        <span class="t-hora">17:00 hs</span>
+                        <span class="t-sub">Turno tarde<br>Clase 26/05 · Eval. 27/05</span>
+                        <span class="t-check">✓ Seleccionado</span>
+                    </button>
+                </div>
+                <div class="seleccion-resumen" id="resumen-mayo26">
+                    <span class="sr-icon">📅</span>
+                    <div class="sr-texto">
+                        <strong id="resumen-fecha-label"></strong>
+                        <span id="resumen-horario"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -930,7 +1155,7 @@
         <span class="alerta-icono">⚠️</span>
         <div class="alerta-texto">
             <strong>Importante: la fecha NO se puede cambiar.</strong>
-            Si no podés asistir en esta fecha, esperá al próximo curso. No hay excepciones de horario ni de día.
+            Si no podés asistir en la fecha elegida, esperá al próximo curso. No hay excepciones de horario ni de día.
         </div>
     </div>
 
@@ -970,6 +1195,29 @@
                 <label for="direccion">Dirección completa <span class="req">*</span></label>
                 <input type="text" id="direccion" required placeholder="Ej: San Martín 123, San Rafael">
                 <span class="form-hint">Calle, número, barrio o ciudad</span>
+            </div>
+
+            <div class="form-group">
+                <label>Fecha del curso <span class="req">*</span></label>
+                <div class="form-fecha-grid">
+                    <button type="button" class="form-fecha-opt activo" data-val="mayo14">
+                        <span class="ffo-dia">14</span>
+                        <div class="ffo-info">Mayo · Miércoles<br>Turno único — 15:00 hs</div>
+                    </button>
+                    <button type="button" class="form-fecha-opt" data-val="mayo26">
+                        <span class="ffo-dia">26</span>
+                        <div class="ffo-info">Mayo · Lunes<br>2 turnos disponibles</div>
+                    </button>
+                </div>
+                <!-- Selector de turno para mayo26 (oculto por defecto) -->
+                <div id="form-turno-wrap" style="display:none;">
+                    <span class="form-hint" style="margin-bottom:0.4rem;display:block;">Seleccioná tu turno:</span>
+                    <div class="form-turno-grid">
+                        <button type="button" class="form-turno-opt" data-turno-val="manana">🌅 10:00 hs — Mañana</button>
+                        <button type="button" class="form-turno-opt" data-turno-val="tarde">🌇 17:00 hs — Tarde</button>
+                    </div>
+                </div>
+                <span class="form-hint" id="fecha-hint">Clase virtual: 14/05 a las 15:00 hs · Evaluación: 15/05 a las 16:00 hs</span>
             </div>
 
             <div class="form-group">
@@ -1104,6 +1352,84 @@
             grupo:      { label: 'Inscripción grupal (3 o más)', total: '$18.000 c/u', seña: '$9.000 c/u' },
         };
 
+        // ── Estado de selección ──────────────────────────────────────────────
+        let estadoFecha  = 'mayo14';   // 'mayo14' | 'mayo26'
+        let estadoTurno  = null;       // 'manana' | 'tarde'
+
+        const FECHAS_INFO = {
+            mayo14: {
+                label:   '14 y 15 de Mayo',
+                horario: 'Clase virtual: 14/05 a las 15:00 hs · Evaluación: 15/05 a las 16:00 hs en Paraguay 97',
+                hint:    'Clase virtual: 14/05 a las 15:00 hs · Evaluación: 15/05 a las 16:00 hs',
+            },
+            mayo26: {
+                manana: {
+                    label:   '26 y 27 de Mayo — Turno mañana',
+                    horario: 'Clase virtual: 26/05 a las 10:00 hs · Evaluación: 27/05 a las 10:00 hs en Paraguay 97',
+                    hint:    'Clase virtual: 26/05 a las 10:00 hs · Evaluación: 27/05 a las 10:00 hs',
+                },
+                tarde: {
+                    label:   '26 y 27 de Mayo — Turno tarde',
+                    horario: 'Clase virtual: 26/05 a las 17:00 hs · Evaluación: 27/05 a las 17:00 hs en Paraguay 97',
+                    hint:    'Clase virtual: 26/05 a las 17:00 hs · Evaluación: 27/05 a las 17:00 hs',
+                },
+            },
+        };
+
+        // ── Tabs info card ────────────────────────────────────────────────────
+        document.querySelectorAll('.fecha-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.fecha-tab').forEach(t => t.classList.remove('activo'));
+                document.querySelectorAll('.turno-panel').forEach(p => p.classList.remove('visible'));
+                tab.classList.add('activo');
+                document.getElementById('panel-' + tab.dataset.fecha).classList.add('visible');
+            });
+        });
+
+        // Botones de turno en el panel mayo26 (info card)
+        document.querySelectorAll('#panel-mayo26 .turno-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#panel-mayo26 .turno-btn').forEach(b => b.classList.remove('seleccionado'));
+                btn.classList.add('seleccionado');
+                const resumen = document.getElementById('resumen-mayo26');
+                document.getElementById('resumen-fecha-label').textContent = btn.dataset.fechaLabel;
+                document.getElementById('resumen-horario').textContent    = btn.dataset.horario;
+                resumen.classList.add('visible');
+            });
+        });
+
+        // ── Selector de fecha en formulario ──────────────────────────────────
+        const fechaHint      = document.getElementById('fecha-hint');
+        const turnoWrap      = document.getElementById('form-turno-wrap');
+
+        document.querySelectorAll('.form-fecha-opt').forEach(opt => {
+            opt.addEventListener('click', () => {
+                document.querySelectorAll('.form-fecha-opt').forEach(o => o.classList.remove('activo'));
+                opt.classList.add('activo');
+                estadoFecha = opt.dataset.val;
+                estadoTurno = null;
+                document.querySelectorAll('.form-turno-opt').forEach(t => t.classList.remove('activo'));
+
+                if (estadoFecha === 'mayo14') {
+                    turnoWrap.style.display = 'none';
+                    fechaHint.textContent   = FECHAS_INFO.mayo14.hint;
+                } else {
+                    turnoWrap.style.display = 'block';
+                    fechaHint.textContent   = 'Seleccioná el turno de arriba';
+                }
+            });
+        });
+
+        document.querySelectorAll('.form-turno-opt').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.form-turno-opt').forEach(b => b.classList.remove('activo'));
+                btn.classList.add('activo');
+                estadoTurno       = btn.dataset.turnoVal;
+                fechaHint.textContent = FECHAS_INFO.mayo26[estadoTurno].hint;
+            });
+        });
+
+        // ── Enviar formulario ─────────────────────────────────────────────────
         document.getElementById('formInscripcion').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -1116,7 +1442,20 @@
 
             if (!tipo) { alert('Por favor seleccioná el tipo de inscripción.'); return; }
 
+            // Validar turno si eligió mayo26
+            if (estadoFecha === 'mayo26' && !estadoTurno) {
+                alert('Por favor seleccioná el turno (mañana o tarde) para la fecha del 26 de Mayo.');
+                return;
+            }
+
             const p = PRECIOS[tipo];
+
+            let fechaInfo;
+            if (estadoFecha === 'mayo14') {
+                fechaInfo = FECHAS_INFO.mayo14;
+            } else {
+                fechaInfo = FECHAS_INFO.mayo26[estadoTurno];
+            }
 
             const msg = `¡Hola Carolina! Quiero inscribirme al curso de Manipulación de Alimentos.
 
@@ -1131,9 +1470,8 @@
 💰 Total: ${p.total}
 🔐 Seña para reservar: ${p.seña}
 
-📅 *FECHA:* 14 y 15 de Mayo
-• Clase virtual: 14/05 a las 15 hs
-• Evaluación: 15/05 a las 16 hs en Paraguay 97
+📅 *FECHA ELEGIDA:* ${fechaInfo.label}
+📌 ${fechaInfo.horario}
 
 Ahora voy a hacer la transferencia y te mando el comprobante. ¡Gracias!`;
 
