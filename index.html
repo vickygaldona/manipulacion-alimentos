@@ -4,1059 +4,1144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carnet de Manipulación de Alimentos | Lic. Carolina García</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --verde-principal: #8FA364;
-            --verde-oscuro: #2D4739;
-            --beige: #F5EFE0;
-            --crema: #FBF8F1;
+            --verde: #6B8F5E;
+            --verde-oscuro: #2A3D2F;
+            --verde-claro: #A8C49A;
+            --verde-bg: #EEF4EB;
+            --crema: #FAF7F2;
+            --arena: #F0EBE0;
             --blanco: #FFFFFF;
-            --gris: #6B7280;
+            --gris: #6B7A6E;
+            --gris-claro: #9AA89D;
+            --texto: #1E2D22;
+            --amarillo: #F5C842;
+            --rojo-suave: #E8625A;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background-color: var(--crema);
-            color: var(--verde-oscuro);
-            line-height: 1.6;
+            color: var(--texto);
+            line-height: 1.65;
         }
 
+        /* ═══════════════════════════════ HERO ═══════════════════════════════ */
         .hero {
-            background: linear-gradient(135deg, var(--verde-principal) 0%, #9FB875 100%);
-            padding: 2rem 1rem;
-            text-align: center;
-            color: var(--blanco);
+            background: var(--verde-oscuro);
+            padding: 3.5rem 1.5rem 5rem;
             position: relative;
             overflow: hidden;
         }
 
         .hero::before {
-            content: '🌿';
+            content: '';
             position: absolute;
-            font-size: 8rem;
-            opacity: 0.1;
-            top: -2rem;
-            right: -2rem;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(107,143,94,0.25) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+            pointer-events: none;
         }
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(168,196,154,0.12) 0%, transparent 70%);
+            bottom: 20px;
+            left: -80px;
+            pointer-events: none;
+        }
+
+        .hero-inner {
             position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 0 auto;
         }
 
-        .hero .subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.25);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
-
-        .quick-info {
-            background: var(--blanco);
-            margin: -1.5rem 1rem 1.5rem;
-            border-radius: 1.25rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
-            position: relative;
-            z-index: 10;
-        }
-
-        .info-header {
-            background: var(--verde-oscuro);
-            color: var(--blanco);
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .info-header h2 {
-            font-size: 1.3rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .info-header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        /* FECHAS DISPONIBLES */
-        .fechas-disponibles {
-            padding: 1.25rem;
-            border-bottom: 1px solid var(--beige);
-        }
-
-        .fechas-disponibles h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--verde-oscuro);
-            margin-bottom: 0.75rem;
-            display: flex;
+        .hero-eyebrow {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .fechas-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.75rem;
-        }
-
-        .fecha-opcion {
-            background: #F0F4E8;
-            border: 2px solid var(--verde-principal);
-            border-radius: 0.875rem;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .fecha-opcion .fecha-tag {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--verde-principal);
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .fecha-opcion .fecha-linea {
-            font-size: 0.85rem;
-            color: var(--verde-oscuro);
-            line-height: 1.4;
-            margin-bottom: 0.25rem;
-        }
-
-        .fecha-opcion .fecha-linea strong {
-            display: block;
-            font-size: 0.95rem;
-        }
-
-        .nuevo-badge {
-            display: inline-block;
-            background: var(--verde-principal);
-            color: var(--blanco);
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 0.2rem 0.5rem;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0;
-        }
-
-        .info-item {
-            padding: 1.25rem;
-            border-bottom: 1px solid var(--beige);
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-item-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .info-icon {
-            font-size: 1.75rem;
-        }
-
-        .info-item h3 {
-            font-size: 1rem;
+            background: rgba(107,143,94,0.25);
+            border: 1px solid rgba(168,196,154,0.3);
+            color: var(--verde-claro);
+            padding: 0.4rem 0.875rem;
+            border-radius: 2rem;
+            font-size: 0.78rem;
             font-weight: 600;
-            color: var(--verde-oscuro);
-        }
-
-        .info-detail {
-            padding-left: 2.5rem;
-            color: var(--gris);
-            font-size: 0.95rem;
-        }
-
-        .info-detail strong {
-            color: var(--verde-oscuro);
-            display: block;
-            margin-top: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .price-big {
-            font-size: 2rem !important;
-            color: var(--verde-principal) !important;
-            font-weight: 700 !important;
-        }
-
-        /* FORMULARIO */
-        .formulario-inscripcion {
-            background: var(--blanco);
-            margin: 1rem;
-            padding: 2rem 1.5rem;
-            border-radius: 1.25rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .formulario-inscripcion h2 {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--verde-oscuro);
-        }
-
-        .formulario-inscripcion .subtitle-form {
-            text-align: center;
-            color: var(--gris);
-            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             margin-bottom: 1.5rem;
         }
 
-        .form-group {
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: var(--blanco);
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--verde-claro);
+        }
+
+        .hero-sub {
+            color: rgba(255,255,255,0.65);
+            font-size: 1rem;
+            font-weight: 300;
+            max-width: 420px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--verde);
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════ CARD INFO ═══════════════════════════════ */
+        .info-card {
+            background: var(--blanco);
+            margin: -2.5rem 1rem 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(30,45,34,0.14), 0 4px 12px rgba(30,45,34,0.06);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            max-width: 880px;
+        }
+
+        @media (min-width: 900px) {
+            .info-card { margin: -2.5rem auto 2rem; }
+        }
+
+        .info-card-header {
+            background: linear-gradient(135deg, var(--verde) 0%, var(--verde-oscuro) 100%);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .info-card-header h2 {
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .info-card-header .mes-badge {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* FECHA */
+        .fecha-block {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--arena);
+        }
+
+        .fecha-block-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gris-claro);
+            margin-bottom: 1rem;
+        }
+
+        .fecha-dias {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .fecha-dia {
+            background: var(--verde-bg);
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            border: 1.5px solid rgba(107,143,94,0.2);
+        }
+
+        .fecha-dia .dia-tipo {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--verde);
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .fecha-dia .dia-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.75rem;
+            color: var(--verde-oscuro);
+            line-height: 1;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .fecha-dia .dia-info {
+            font-size: 0.78rem;
+            color: var(--gris);
+            line-height: 1.4;
+        }
+
+        /* DETALLES */
+        .detalles-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 640px) {
+            .detalles-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .detalle-item {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--arena);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 640px) {
+            .detalle-item:nth-child(odd) { border-right: 1px solid var(--arena); }
+            .detalle-item:last-child, .detalle-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+        }
+
+        .detalle-icon {
+            width: 2.25rem;
+            height: 2.25rem;
+            background: var(--verde-bg);
+            border-radius: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .detalle-item h3 {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gris-claro);
+            margin-bottom: 0.3rem;
+        }
+
+        .detalle-item p {
+            font-size: 0.9rem;
+            color: var(--texto);
+            line-height: 1.5;
+        }
+
+        .detalle-item p strong {
+            color: var(--verde-oscuro);
+        }
+
+        /* ═══════════════════════════════ PRECIOS ═══════════════════════════════ */
+        .precios-section {
+            padding: 0 1rem 2rem;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .precios-title {
+            text-align: center;
             margin-bottom: 1.25rem;
+        }
+
+        .precios-title h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.75rem;
+            color: var(--verde-oscuro);
+            margin-bottom: 0.25rem;
+        }
+
+        .precios-title p {
+            color: var(--gris);
+            font-size: 0.9rem;
+        }
+
+        .precios-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.875rem;
+        }
+
+        @media (min-width: 600px) {
+            .precios-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .precio-card {
+            background: var(--blanco);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            border: 2px solid var(--arena);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .precio-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(30,45,34,0.1);
+        }
+
+        .precio-card.destacado {
+            border-color: var(--verde);
+            background: var(--verde-bg);
+        }
+
+        .precio-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.65rem;
+            border-radius: 1rem;
+            margin-bottom: 0.75rem;
+            background: var(--arena);
+            color: var(--gris);
+        }
+
+        .precio-card.destacado .precio-tag {
+            background: var(--verde);
+            color: white;
+        }
+
+        .precio-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--verde-oscuro);
+            margin-bottom: 0.25rem;
+        }
+
+        .precio-card .desc {
+            font-size: 0.82rem;
+            color: var(--gris);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .precio-monto {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.25rem;
+            color: var(--verde-oscuro);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .precio-card.destacado .precio-monto {
+            color: var(--verde);
+        }
+
+        .precio-cuotas {
+            font-size: 0.8rem;
+            color: var(--gris);
+            border-top: 1px solid rgba(0,0,0,0.06);
+            padding-top: 0.75rem;
+            margin-top: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .precio-cuotas strong {
+            color: var(--texto);
+        }
+
+        /* ═══════════════════════════════ ALERTA ═══════════════════════════════ */
+        .alerta {
+            margin: 0 1rem 2rem;
+            max-width: 880px;
+            background: #FFF8E6;
+            border: 1.5px solid #F5C842;
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            display: flex;
+            gap: 0.875rem;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 900px) { .alerta { margin: 0 auto 2rem; } }
+
+        .alerta-icono {
+            font-size: 1.35rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .alerta-texto {
+            font-size: 0.88rem;
+            color: #7A5A00;
+            line-height: 1.55;
+        }
+
+        .alerta-texto strong {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 0.92rem;
+        }
+
+        /* ═══════════════════════════════ FORMULARIO ═══════════════════════════════ */
+        .form-section {
+            background: var(--blanco);
+            margin: 0 1rem 2rem;
+            border-radius: 1.5rem;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(30,45,34,0.08);
+            max-width: 880px;
+        }
+
+        @media (min-width: 900px) { .form-section { margin: 0 auto 2rem; } }
+
+        .form-section-header {
+            text-align: center;
+            margin-bottom: 1.75rem;
+        }
+
+        .form-section-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            color: var(--verde-oscuro);
+            margin-bottom: 0.35rem;
+        }
+
+        .form-section-header p {
+            color: var(--gris);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.1rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: var(--verde-oscuro);
+            font-size: 0.82rem;
             font-weight: 600;
-            font-size: 0.95rem;
+            color: var(--verde-oscuro);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .form-group label .required {
-            color: #EF4444;
-            margin-left: 0.25rem;
+        .form-group label .req {
+            color: var(--rojo-suave);
+            margin-left: 0.2rem;
         }
 
         .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 0.875rem;
-            border: 2px solid var(--beige);
+            padding: 0.8rem 1rem;
+            border: 1.5px solid var(--arena);
             border-radius: 0.75rem;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
             background: var(--crema);
-            color: var(--verde-oscuro);
-            appearance: none;
+            color: var(--texto);
+            transition: border-color 0.2s, background 0.2s;
             -webkit-appearance: none;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
-            border-color: var(--verde-principal);
-            background: var(--blanco);
+            border-color: var(--verde);
+            background: white;
         }
 
         .form-group textarea {
+            min-height: 75px;
             resize: vertical;
-            min-height: 80px;
         }
 
-        /* Select de fecha con flecha */
-        .select-wrapper {
+        .form-hint {
+            font-size: 0.76rem;
+            color: var(--gris-claro);
+            margin-top: 0.3rem;
+            display: block;
+        }
+
+        .select-wrap {
             position: relative;
         }
 
-        .select-wrapper::after {
+        .select-wrap::after {
             content: '▾';
             position: absolute;
             right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--verde-principal);
-            font-size: 1.1rem;
+            color: var(--verde);
             pointer-events: none;
         }
 
-        /* Preview de fecha seleccionada */
-        .fecha-preview {
-            display: none;
-            background: #F0F4E8;
-            border: 2px solid var(--verde-principal);
-            border-radius: 0.875rem;
-            padding: 1rem;
-            text-align: center;
-            margin-top: 0.75rem;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
         }
 
-        .fecha-preview.visible {
-            display: block;
+        @media (min-width: 480px) {
+            .form-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
         }
 
-        .fecha-preview .fp-mes {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--verde-principal);
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-
-        .fecha-preview .fp-dias {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--verde-oscuro);
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-
-        .fecha-preview .fp-detalle {
-            font-size: 0.85rem;
-            color: var(--gris);
-            display: block;
-            line-height: 1.5;
-        }
-
-        .form-hint {
-            font-size: 0.8rem;
-            color: var(--gris);
-            margin-top: 0.25rem;
-            display: block;
-        }
-
-        .btn-enviar-form {
+        .btn-submit {
             width: 100%;
+            padding: 1.1rem;
             background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            color: var(--blanco);
+            color: white;
             border: none;
-            padding: 1.25rem;
-            border-radius: 1rem;
-            font-size: 1.1rem;
+            border-radius: 0.875rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
-        .btn-enviar-form:hover {
+        .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+            box-shadow: 0 10px 28px rgba(37,211,102,0.45);
         }
 
-        .btn-enviar-form:active {
-            transform: scale(0.98);
-        }
+        .btn-submit:active { transform: scale(0.98); }
 
-        .btn-enviar-form::before {
-            content: '📱 ';
-        }
-
-        .cta-principal {
-            padding: 0 1rem 1.5rem;
-        }
-
-        .btn-whatsapp {
-            display: block;
-            width: 100%;
-            background: linear-gradient(135deg, var(--verde-principal) 0%, #9FB875 100%);
-            color: var(--blanco);
-            text-decoration: none;
-            padding: 1rem;
-            border-radius: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
+        /* ═══════════════════════════════ DIVISOR ═══════════════════════════════ */
+        .divisor {
             text-align: center;
-            box-shadow: 0 4px 15px rgba(143, 163, 100, 0.3);
-            transition: all 0.3s;
-        }
-
-        .btn-whatsapp:active {
-            transform: scale(0.98);
-        }
-
-        .btn-whatsapp::before {
-            content: '💬 ';
-        }
-
-        .o-divider {
-            text-align: center;
-            margin: 1.5rem 1rem;
             position: relative;
+            margin: 0 1rem 1.5rem;
         }
 
-        .o-divider::before {
+        .divisor::before {
             content: '';
             position: absolute;
             top: 50%;
-            left: 0;
-            right: 0;
+            left: 0; right: 0;
             height: 1px;
-            background: var(--beige);
+            background: var(--arena);
         }
 
-        .o-divider span {
+        .divisor span {
             background: var(--crema);
             padding: 0 1rem;
             position: relative;
-            color: var(--gris);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            color: var(--gris-claro);
         }
 
-        .steps {
-            background: var(--blanco);
-            padding: 2rem 1rem;
-            margin: 1rem;
-            border-radius: 1.25rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        /* ═══════════════════════════════ BTN WA ═══════════════════════════════ */
+        .cta-wrap {
+            padding: 0 1rem 2rem;
+            max-width: 480px;
+            margin: 0 auto;
         }
 
-        .steps h2 {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+        .btn-wa {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            width: 100%;
+            background: white;
+            border: 2px solid var(--arena);
             color: var(--verde-oscuro);
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 0.875rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
-        .step {
+        .btn-wa:hover {
+            border-color: var(--verde);
+            background: var(--verde-bg);
+        }
+
+        /* ═══════════════════════════════ PASOS ═══════════════════════════════ */
+        .pasos-section {
+            background: var(--blanco);
+            margin: 0 1rem 2rem;
+            border-radius: 1.5rem;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(30,45,34,0.06);
+            max-width: 880px;
+        }
+
+        @media (min-width: 900px) { .pasos-section { margin: 0 auto 2rem; } }
+
+        .pasos-section h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            color: var(--verde-oscuro);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .paso {
             display: flex;
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
 
-        .step:last-child {
-            margin-bottom: 0;
-        }
+        .paso:last-child { margin-bottom: 0; }
 
-        .step-number {
-            width: 2.5rem;
-            height: 2.5rem;
-            background: linear-gradient(135deg, var(--verde-principal), #9FB875);
-            color: var(--blanco);
+        .paso-num {
+            width: 2.25rem;
+            height: 2.25rem;
+            background: var(--verde-oscuro);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 0.95rem;
             flex-shrink: 0;
+            font-family: 'DM Serif Display', serif;
         }
 
-        .step-content h3 {
-            font-size: 1.05rem;
-            margin-bottom: 0.5rem;
+        .paso-body h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
             color: var(--verde-oscuro);
+            margin-bottom: 0.4rem;
         }
 
-        .step-content p {
-            font-size: 0.9rem;
+        .paso-body p {
+            font-size: 0.88rem;
             color: var(--gris);
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
-        .payment-box {
-            background: var(--beige);
-            padding: 1rem;
+        .paso-body p strong { color: var(--verde-oscuro); }
+
+        .pago-box {
+            background: var(--verde-bg);
             border-radius: 0.75rem;
+            padding: 0.875rem 1rem;
             margin-top: 0.75rem;
         }
 
-        .payment-row {
+        .pago-row {
             display: flex;
             justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed rgba(45, 71, 57, 0.2);
-        }
-
-        .payment-row:last-child {
-            border-bottom: none;
-        }
-
-        .payment-label {
-            color: var(--gris);
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed rgba(42,61,47,0.15);
             font-size: 0.85rem;
         }
 
-        .payment-value {
-            font-weight: 700;
-            color: var(--verde-oscuro);
-            font-family: 'Courier New', monospace;
-        }
+        .pago-row:last-child { border-bottom: none; }
+        .pago-label { color: var(--gris); }
+        .pago-value { font-weight: 700; color: var(--verde-oscuro); font-family: 'Courier New', monospace; font-size: 0.9rem; }
 
-        .instructor {
-            background: linear-gradient(135deg, var(--verde-oscuro) 0%, #3D5A49 100%);
-            padding: 2rem 1rem;
-            color: var(--blanco);
+        /* ═══════════════════════════════ INSTRUCTORA ═══════════════════════════════ */
+        .instructora {
+            background: var(--verde-oscuro);
+            padding: 2.5rem 1.5rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .instructor-badge {
-            background: rgba(255,255,255,0.2);
+        .instructora::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(107,143,94,0.2) 0%, transparent 70%);
+            top: -100px; right: -100px;
+            pointer-events: none;
+        }
+
+        .instructora-inner { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; }
+
+        .instructora-eyebrow {
             display: inline-block;
-            padding: 0.5rem 1.25rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            background: rgba(168,196,154,0.2);
+            border: 1px solid rgba(168,196,154,0.25);
+            color: var(--verde-claro);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.35rem 0.875rem;
+            border-radius: 1rem;
             margin-bottom: 1rem;
-            backdrop-filter: blur(10px);
         }
 
-        .instructor h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
+        .instructora h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 0.4rem;
         }
 
-        .matricula {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 1.5rem;
+        .instructora .matricula {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.88rem;
+            margin-bottom: 1.75rem;
         }
 
         .features {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
-            max-width: 350px;
-            margin: 0 auto;
+            gap: 0.6rem;
         }
 
         .feature {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 0.75rem 1rem;
             border-radius: 0.75rem;
-            backdrop-filter: blur(10px);
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.85);
+            text-align: left;
         }
 
         .feature-icon {
-            font-size: 1.25rem;
+            width: 1.75rem;
+            height: 1.75rem;
+            background: rgba(107,143,94,0.3);
+            border-radius: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
         }
 
+        /* ═══════════════════════════════ PARA QUIÉN ═══════════════════════════════ */
         .para-quien {
-            padding: 2rem 1rem;
+            padding: 2.5rem 1rem;
+            max-width: 880px;
+            margin: 0 auto;
         }
 
-        .para-quien h2 {
+        .para-quien-header {
             text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--verde-oscuro);
-        }
-
-        .para-quien-intro {
-            text-align: center;
-            color: var(--gris);
             margin-bottom: 1.5rem;
-            font-size: 0.95rem;
+        }
+
+        .para-quien-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.75rem;
+            color: var(--verde-oscuro);
+            margin-bottom: 0.35rem;
+        }
+
+        .para-quien-header p {
+            color: var(--gris);
+            font-size: 0.9rem;
         }
 
         .cards-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            .cards-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         .card {
             background: var(--blanco);
-            padding: 1.25rem;
             border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            transition: all 0.3s;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            border: 1.5px solid var(--arena);
+            transition: all 0.2s;
         }
 
-        .card:active {
-            transform: scale(0.98);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        .card:hover {
+            border-color: var(--verde-claro);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30,45,34,0.08);
         }
 
-        .card-icon {
-            font-size: 2.25rem;
-            flex-shrink: 0;
-        }
+        .card-icon { font-size: 2rem; display: block; margin-bottom: 0.6rem; }
 
-        .card-content h3 {
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-            color: var(--verde-oscuro);
-        }
-
-        .card-content p {
-            font-size: 0.85rem;
-            color: var(--gris);
-        }
-
-        .alert {
-            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-            border-left: 4px solid #F59E0B;
-            padding: 1rem;
-            margin: 1rem;
-            border-radius: 0.75rem;
-            display: flex;
-            gap: 0.75rem;
-            align-items: flex-start;
-        }
-
-        .alert-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .alert-content {
+        .card h3 {
             font-size: 0.9rem;
-            color: #92400E;
+            font-weight: 600;
+            color: var(--verde-oscuro);
+            margin-bottom: 0.2rem;
         }
 
-        .alert-content strong {
-            display: block;
-            margin-bottom: 0.25rem;
-        }
+        .card p { font-size: 0.78rem; color: var(--gris); }
 
+        /* ═══════════════════════════════ FOOTER ═══════════════════════════════ */
         .footer {
             background: var(--verde-oscuro);
-            color: rgba(255,255,255,0.8);
-            padding: 1.5rem 1rem;
+            color: rgba(255,255,255,0.5);
             text-align: center;
-            font-size: 0.85rem;
+            padding: 1.5rem 1rem;
+            font-size: 0.82rem;
         }
 
-        @media (min-width: 640px) {
-            .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-
-            .quick-info {
-                margin: -2rem 2rem 2rem;
-            }
-
-            .steps, .para-quien, .cta-principal, .formulario-inscripcion {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-
-            .alert {
-                margin: 1rem 2rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .quick-info {
-                max-width: 900px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .info-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .info-item {
-                border-right: 1px solid var(--beige);
-                border-bottom: 1px solid var(--beige);
-            }
-
-            .info-item:nth-child(2n) {
-                border-right: none;
-            }
-
-            .info-item:nth-last-child(-n+2) {
-                border-bottom: none;
-            }
-
-            .steps, .para-quien, .formulario-inscripcion {
-                max-width: 900px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .cta-principal {
-                max-width: 500px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .cards-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+        .footer span { display: block; margin-top: 0.3rem; font-size: 0.75rem; opacity: 0.6; }
     </style>
 </head>
 <body>
 
     <!-- HERO -->
     <div class="hero">
-        <h1>Obtené tu Carnet 🌿<br>de Manipulación de Alimentos</h1>
-        <p class="subtitle">Capacitación oficial obligatoria</p>
-        <span class="badge">✓ Válido en todo el país</span>
+        <div class="hero-inner">
+            <div class="hero-eyebrow">✓ Capacitación oficial obligatoria</div>
+            <h1>Obtené tu Carnet de<br><em>Manipulación de Alimentos</em></h1>
+            <p class="hero-sub">Certificación avalada y válida en todo el país. Vigencia de 3 años.</p>
+            <div class="hero-badge">🌿 Lic. Carolina García · MP 1264</div>
+        </div>
     </div>
 
-    <!-- INFO RÁPIDA -->
-    <div class="quick-info">
-        <div class="info-header">
-            <h2>Datos del Curso</h2>
-            <p>Fecha disponible en Mayo</p>
+    <!-- INFO CARD -->
+    <div class="info-card">
+        <div class="info-card-header">
+            <h2>📅 Próxima fecha disponible</h2>
+            <span class="mes-badge">Mayo 2025</span>
         </div>
 
-        <!-- FECHAS DISPONIBLES -->
-        <div class="fechas-disponibles">
-            <h3>📅 Fecha disponible</h3>
-            <div class="fechas-grid">
-                <!-- Fecha única -->
-                <div class="fecha-opcion">
-                    <span class="nuevo-badge">Mayo</span>
-                    <div class="fecha-linea">
-                        <strong>14 de Mayo</strong>
-                        Clase virtual · 15 hs
-                    </div>
-                    <div class="fecha-linea" style="margin-top: 0.4rem;">
-                        <strong>15 de Mayo</strong>
-                        Evaluación presencial · 16 hs
-                    </div>
+        <div class="fecha-block">
+            <div class="fecha-block-label">Cronograma del curso</div>
+            <div class="fecha-dias">
+                <div class="fecha-dia">
+                    <span class="dia-tipo">Clase virtual</span>
+                    <span class="dia-num">14</span>
+                    <div class="dia-info">Mayo · Miércoles<br>15:00 hs · Google Meet</div>
+                </div>
+                <div class="fecha-dia">
+                    <span class="dia-tipo">Evaluación presencial</span>
+                    <span class="dia-num">15</span>
+                    <div class="dia-info">Mayo · Jueves<br>16:00 hs · Paraguay 97</div>
                 </div>
             </div>
         </div>
 
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="info-item-header">
-                    <span class="info-icon">📍</span>
-                    <h3>¿Dónde es?</h3>
-                </div>
-                <div class="info-detail">
-                    <strong>Clase Virtual:</strong> Por Google Meet
-                    <strong>Evaluación:</strong> Paraguay 97, San Rafael
+        <div class="detalles-grid">
+            <div class="detalle-item">
+                <div class="detalle-icon">📍</div>
+                <div>
+                    <h3>Dónde</h3>
+                    <p><strong>Clase:</strong> Google Meet<br><strong>Evaluación:</strong> Paraguay 97, San Rafael</p>
                 </div>
             </div>
-
-            <div class="info-item">
-                <div class="info-item-header">
-                    <span class="info-icon">💰</span>
-                    <h3>¿Cuánto sale?</h3>
-                </div>
-                <div class="info-detail">
-                    <span class="price-big">$20.000</span>
-                    <strong>Para reservar:</strong> Pagás $10.000 ahora<br>
-                    <strong>El resto:</strong> $10.000 el día de la evaluación
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-item-header">
-                    <span class="info-icon">⏱️</span>
-                    <h3>¿Cuánto dura?</h3>
-                </div>
-                <div class="info-detail">
-                    El carnet te sirve por <strong>3 años</strong>
-                    <br>Después lo tenés que renovar
+            <div class="detalle-item">
+                <div class="detalle-icon">⏳</div>
+                <div>
+                    <h3>Vigencia</h3>
+                    <p>El carnet es válido por <strong>3 años</strong>. Luego se renueva.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ALERTA IMPORTANTE -->
-    <div class="alert">
-        <span class="alert-icon">⚠️</span>
-        <div class="alert-content">
-            <strong>ATENCIÓN - LEELO BIEN:</strong>
-            La fecha y horario NO SE PUEDE cambiar. Si no podés venir en esta fecha, esperá al próximo curso.
+    <!-- PRECIOS -->
+    <div class="precios-section">
+        <div class="precios-title">
+            <h2>Aranceles del curso</h2>
+            <p>Elegí la opción que corresponde a tu caso</p>
+        </div>
+        <div class="precios-grid">
+
+            <div class="precio-card destacado">
+                <span class="precio-tag">Más común</span>
+                <h3>Curso nuevo</h3>
+                <p class="desc">Primera vez que hacés el carnet</p>
+                <div class="precio-monto">$20.000</div>
+                <div class="precio-cuotas">
+                    <strong>$10.000</strong> para reservar<br>
+                    <strong>$10.000</strong> el día de la evaluación
+                </div>
+            </div>
+
+            <div class="precio-card">
+                <span class="precio-tag">Renovación</span>
+                <h3>Renovación</h3>
+                <p class="desc">Ya tenés carnet y necesitás renovarlo</p>
+                <div class="precio-monto">$14.000</div>
+                <div class="precio-cuotas">
+                    <strong>$7.000</strong> para reservar<br>
+                    <strong>$7.000</strong> el día de la evaluación
+                </div>
+            </div>
+
+            <div class="precio-card">
+                <span class="precio-tag">Grupo</span>
+                <h3>Inscripción grupal</h3>
+                <p class="desc">3 personas o más del mismo lugar</p>
+                <div class="precio-monto">$18.000</div>
+                <div class="precio-cuotas">
+                    <strong>$9.000</strong> para reservar<br>
+                    <strong>$9.000</strong> el día de la evaluación<br>
+                    <strong style="color:var(--verde)">por persona</strong>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- FORMULARIO DE INSCRIPCIÓN -->
-    <div class="formulario-inscripcion">
-        <h2>📝 Formulario de Inscripción</h2>
-        <p class="subtitle-form">Completá tus datos y te generamos el mensaje automáticamente</p>
-        
+    <!-- ALERTA -->
+    <div class="alerta">
+        <span class="alerta-icono">⚠️</span>
+        <div class="alerta-texto">
+            <strong>Importante: la fecha NO se puede cambiar.</strong>
+            Si no podés asistir en esta fecha, esperá al próximo curso. No hay excepciones de horario ni de día.
+        </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="form-section">
+        <div class="form-section-header">
+            <h2>Inscribite ahora</h2>
+            <p>Completá tus datos y te generamos el mensaje para WhatsApp</p>
+        </div>
+
         <form id="formInscripcion">
-            <div class="form-group">
-                <label for="nombre">
-                    Nombre Completo
-                    <span class="required">*</span>
-                </label>
-                <input 
-                    type="text" 
-                    id="nombre" 
-                    name="nombre" 
-                    required
-                    placeholder="Ej: Juan Pérez"
-                >
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo <span class="req">*</span></label>
+                    <input type="text" id="nombre" required placeholder="Ej: Juan Pérez">
+                </div>
+                <div class="form-group">
+                    <label for="dni">DNI <span class="req">*</span></label>
+                    <input type="text" id="dni" required placeholder="Sin puntos ni espacios">
+                    <span class="form-hint">Solo números</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="celular">Celular <span class="req">*</span></label>
+                    <input type="tel" id="celular" required placeholder="Ej: 2604123456">
+                    <span class="form-hint">Con código de área, sin 15</span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="req">*</span></label>
+                    <input type="email" id="email" required placeholder="tucorreo@gmail.com">
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="dni">
-                    Número de DNI
-                    <span class="required">*</span>
-                </label>
-                <input 
-                    type="text" 
-                    id="dni" 
-                    name="dni" 
-                    required
-                    placeholder="Ej: 12345678"
-                    pattern="[0-9]+"
-                >
-                <span class="form-hint">Solo números, sin puntos ni espacios</span>
+                <label for="direccion">Dirección completa <span class="req">*</span></label>
+                <input type="text" id="direccion" required placeholder="Ej: San Martín 123, San Rafael">
+                <span class="form-hint">Calle, número, barrio o ciudad</span>
             </div>
 
             <div class="form-group">
-                <label for="celular">
-                    Número de Celular
-                    <span class="required">*</span>
-                </label>
-                <input 
-                    type="tel" 
-                    id="celular" 
-                    name="celular" 
-                    required
-                    placeholder="Ej: 2604123456"
-                >
-                <span class="form-hint">Con código de área, sin 15</span>
+                <label for="tipo">Tipo de inscripción <span class="req">*</span></label>
+                <div class="select-wrap">
+                    <select id="tipo" required>
+                        <option value="">— Seleccioná una opción —</option>
+                        <option value="nuevo">Curso nuevo — $20.000</option>
+                        <option value="renovacion">Renovación — $14.000</option>
+                        <option value="grupo">Grupal (3 o más) — $18.000 c/u</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="direccion">
-                    Dirección Completa
-                    <span class="required">*</span>
-                </label>
-                <input 
-                    type="text" 
-                    id="direccion" 
-                    name="direccion" 
-                    required
-                    placeholder="Ej: San Martín 123, San Rafael"
-                >
-                <span class="form-hint">Calle, número, barrio/ciudad</span>
-            </div>
-
-            <div class="form-group">
-                <label for="email">
-                    Email
-                    <span class="required">*</span>
-                </label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    required
-                    placeholder="Ej: juanperez@gmail.com"
-                >
-            </div>
-
-            <button type="submit" class="btn-enviar-form">
-                Enviar Inscripción por WhatsApp
+            <button type="submit" class="btn-submit">
+                <span>📱</span> Enviar inscripción por WhatsApp
             </button>
         </form>
     </div>
 
-    <div class="o-divider">
-        <span>o si preferís</span>
-    </div>
+    <div class="divisor"><span>o si preferís</span></div>
 
-    <!-- CTA PRINCIPAL -->
-    <div class="cta-principal">
-        <a href="#" class="btn-whatsapp" id="btn-whatsapp">
-            Escribir directamente por WhatsApp
+    <div class="cta-wrap">
+        <a href="#" class="btn-wa" id="btn-whatsapp">
+            💬 Escribir directamente por WhatsApp
         </a>
     </div>
 
-    <!-- PASOS DE INSCRIPCIÓN -->
-    <div class="steps">
-        <h2>¿Cómo sigue después de inscribirte?</h2>
-        
-        <div class="step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-                <h3>Hacé la transferencia de $10.000</h3>
-                <p><strong>Importante:</strong> Copiá bien estos datos</p>
-                <div class="payment-box">
-                    <div class="payment-row">
-                        <span class="payment-label">Alias CBU:</span>
-                        <span class="payment-value">garcia1264</span>
+    <!-- PASOS -->
+    <div class="pasos-section">
+        <h2>¿Cómo seguís después de inscribirte?</h2>
+
+        <div class="paso">
+            <div class="paso-num">1</div>
+            <div class="paso-body">
+                <h3>Hacé la transferencia del 50%</h3>
+                <p>Mandá la mitad del monto según tu inscripción para reservar tu lugar.</p>
+                <div class="pago-box">
+                    <div class="pago-row">
+                        <span class="pago-label">Alias CBU:</span>
+                        <span class="pago-value">garcia1264</span>
                     </div>
-                    <div class="payment-row">
-                        <span class="payment-label">A nombre de:</span>
-                        <span class="payment-value">Carolina E. García</span>
+                    <div class="pago-row">
+                        <span class="pago-label">A nombre de:</span>
+                        <span class="pago-value">Carolina E. García</span>
                     </div>
-                    <div class="payment-row">
-                        <span class="payment-label">Cuánto mandás:</span>
-                        <span class="payment-value">$10.000 (mitad del total)</span>
+                    <div class="pago-row">
+                        <span class="pago-label">Monto (curso nuevo):</span>
+                        <span class="pago-value">$10.000</span>
+                    </div>
+                    <div class="pago-row">
+                        <span class="pago-label">Monto (renovación):</span>
+                        <span class="pago-value">$7.000</span>
+                    </div>
+                    <div class="pago-row">
+                        <span class="pago-label">Monto (grupal, c/u):</span>
+                        <span class="pago-value">$9.000</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="step">
-            <div class="step-number">2</div>
-            <div class="step-content">
+        <div class="paso">
+            <div class="paso-num">2</div>
+            <div class="paso-body">
                 <h3>Mandame el comprobante</h3>
-                <p>Sacale captura o foto al comprobante y mandamelo por WhatsApp. <strong>Con eso ya quedás inscripto.</strong></p>
-                <p style="margin-top: 0.5rem; color: var(--verde-principal); font-weight: 600;">Los otros $10.000 los pagás el día de la evaluación.</p>
+                <p>Sacale foto o captura al comprobante y envialo por WhatsApp. <strong>Con eso ya quedás inscripto/a.</strong></p>
+                <p style="margin-top:0.4rem;color:var(--verde);font-weight:600;font-size:0.88rem;">El resto lo abonás el día de la evaluación.</p>
             </div>
         </div>
 
-        <div class="step">
-            <div class="step-number">3</div>
-            <div class="step-content">
+        <div class="paso">
+            <div class="paso-num">3</div>
+            <div class="paso-body">
                 <h3>Recibís la confirmación</h3>
-                <p>Te voy a mandar un mensaje confirmando tu inscripción y el link de Google Meet para la clase.</p>
+                <p>Te envío un mensaje confirmando tu lugar y el link de Google Meet para la clase virtual.</p>
             </div>
         </div>
     </div>
 
-    <!-- CAPACITADORA -->
-    <div class="instructor">
-        <div class="instructor-badge">✓ Capacitadora Oficial</div>
-        <h2>Lic. en Nutrición<br>Carolina García</h2>
-        <p class="matricula">Matrícula Profesional: MP 1264</p>
-        
-        <div class="features">
-            <div class="feature">
-                <span class="feature-icon">✓</span>
-                <span>Certificación avalada oficialmente</span>
-            </div>
-            <div class="feature">
-                <span class="feature-icon">📍</span>
-                <span>Válida en todo el país</span>
-            </div>
-            <div class="feature">
-                <span class="feature-icon">⏰</span>
-                <span>Vigencia de 3 años</span>
+    <!-- INSTRUCTORA -->
+    <div class="instructora">
+        <div class="instructora-inner">
+            <div class="instructora-eyebrow">Capacitadora oficial</div>
+            <h2>Lic. en Nutrición<br>Carolina García</h2>
+            <p class="matricula">Matrícula Profesional MP 1264</p>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">✓</div>
+                    <span>Certificación avalada oficialmente</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📍</div>
+                    <span>Válida en todo el país</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⏰</div>
+                    <span>Vigencia de 3 años</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- PARA QUIÉN ES -->
+    <!-- PARA QUIÉN -->
     <div class="para-quien">
-        <h2>¿Necesitás el carnet?</h2>
-        <p class="para-quien-intro">Es OBLIGATORIO si trabajás con comida. Sin este carnet no podés trabajar legalmente.</p>
-        
+        <div class="para-quien-header">
+            <h2>¿Necesitás el carnet?</h2>
+            <p>Es <strong>obligatorio</strong> si trabajás con alimentos. Sin él no podés trabajar legalmente.</p>
+        </div>
         <div class="cards-grid">
-            <div class="card">
-                <span class="card-icon">🍽️</span>
-                <div class="card-content">
-                    <h3>Restaurantes y Bares</h3>
-                    <p>Personal de cocina y salón</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="card-icon">🏭</span>
-                <div class="card-content">
-                    <h3>Fábricas</h3>
-                    <p>Producción y envasado</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="card-icon">🥘</span>
-                <div class="card-content">
-                    <h3>Rotiserías</h3>
-                    <p>Elaboración y expendio</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="card-icon">🏪</span>
-                <div class="card-content">
-                    <h3>Comercios</h3>
-                    <p>Venta y manipulación</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="card-icon">🎂</span>
-                <div class="card-content">
-                    <h3>Panaderías</h3>
-                    <p>Elaboración artesanal</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="card-icon">🍕</span>
-                <div class="card-content">
-                    <h3>Delivery y Catering</h3>
-                    <p>Preparación y distribución</p>
-                </div>
-            </div>
+            <div class="card"><span class="card-icon">🍽️</span><h3>Restaurantes</h3><p>Cocina y salón</p></div>
+            <div class="card"><span class="card-icon">🏭</span><h3>Fábricas</h3><p>Producción y envasado</p></div>
+            <div class="card"><span class="card-icon">🥘</span><h3>Rotiserías</h3><p>Elaboración y expendio</p></div>
+            <div class="card"><span class="card-icon">🏪</span><h3>Comercios</h3><p>Venta y manipulación</p></div>
+            <div class="card"><span class="card-icon">🎂</span><h3>Panaderías</h3><p>Elaboración artesanal</p></div>
+            <div class="card"><span class="card-icon">🍕</span><h3>Delivery</h3><p>Preparación y distribución</p></div>
         </div>
     </div>
 
     <!-- FOOTER -->
     <div class="footer">
-        <p>&copy; 2025 Lic. Carolina García - MP 1264</p>
-        <p style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">Todos los derechos reservados</p>
+        © 2025 Lic. Carolina García · MP 1264
+        <span>Todos los derechos reservados</span>
     </div>
 
     <script>
-        const WHATSAPP_NUMBER = '2604840322';
+        const WA = '2604840322';
 
-        const FECHA = {
-            label: '14 y 15 de Mayo',
-            detalle: 'Clase virtual: 14 de Mayo a las 15 hs\nEvaluación presencial: 15 de Mayo a las 16 hs'
+        const PRECIOS = {
+            nuevo:      { label: 'Curso nuevo',                  total: '$20.000', seña: '$10.000' },
+            renovacion: { label: 'Renovación de carnet',         total: '$14.000', seña: '$7.000' },
+            grupo:      { label: 'Inscripción grupal (3 o más)', total: '$18.000 c/u', seña: '$9.000 c/u' },
         };
 
-        // Submit del formulario
         document.getElementById('formInscripcion').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const nombre = document.getElementById('nombre').value.trim();
-            const dni = document.getElementById('dni').value.trim();
-            const celular = document.getElementById('celular').value.trim();
+            const nombre    = document.getElementById('nombre').value.trim();
+            const dni       = document.getElementById('dni').value.trim();
+            const celular   = document.getElementById('celular').value.trim();
+            const email     = document.getElementById('email').value.trim();
             const direccion = document.getElementById('direccion').value.trim();
-            const email = document.getElementById('email').value.trim();
+            const tipo      = document.getElementById('tipo').value;
 
-            const mensaje = `¡Hola Carolina! Quiero inscribirme al curso de Manipulación de Alimentos.
+            if (!tipo) { alert('Por favor seleccioná el tipo de inscripción.'); return; }
+
+            const p = PRECIOS[tipo];
+
+            const msg = `¡Hola Carolina! Quiero inscribirme al curso de Manipulación de Alimentos.
 
 📋 *MIS DATOS:*
-
-
 👤 Nombre: ${nombre}
 🆔 DNI: ${dni}
 📱 Celular: ${celular}
-📍 Dirección: ${direccion}
 📧 Email: ${email}
+📍 Dirección: ${direccion}
 
-📅 *FECHA ELEGIDA:* ${FECHA.label}
-${FECHA.detalle}
+💳 *TIPO DE INSCRIPCIÓN:* ${p.label}
+💰 Total: ${p.total}
+🔐 Seña para reservar: ${p.seña}
 
-Ya vi toda la información del curso. Ahora voy a hacer la transferencia de $10.000 y te mando el comprobante. ¡Gracias!`;
+📅 *FECHA:* 14 y 15 de Mayo
+• Clase virtual: 14/05 a las 15 hs
+• Evaluación: 15/05 a las 16 hs en Paraguay 97
 
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`, '_blank');
+Ahora voy a hacer la transferencia y te mando el comprobante. ¡Gracias!`;
+
+            window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
         });
 
-        const MESSAGE = 'Hola! Quiero inscribirme al curso de Manipulación de Alimentos. ¿Podés darme más información sobre la fecha disponible?';
-        document.getElementById('btn-whatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(MESSAGE)}`;
+        document.getElementById('btn-whatsapp').href =
+            `https://wa.me/${WA}?text=${encodeURIComponent('Hola! Quiero inscribirme al curso de Manipulación de Alimentos. ¿Podés darme más información?')}`;
 
         document.getElementById('dni').addEventListener('input', function() {
             this.value = this.value.replace(/[^0-9]/g, '');
